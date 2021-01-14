@@ -173,6 +173,7 @@ private:
         delete left;
         delete right;
         delete action;
+        history = std::stack<Command*>{};
     }
 
 public:
@@ -204,7 +205,7 @@ public:
         case Lft: left->execute(); history.push(left); return true;
         case Rgh: right->execute(); history.push(right); return true;
         case Act: action->execute(); return true;
-        case Ext: extra->execute(); return true;
+        case Ext: if (extra) extra->execute(); return true;
         case Home: back_home(); return true;
         }
         return false;
